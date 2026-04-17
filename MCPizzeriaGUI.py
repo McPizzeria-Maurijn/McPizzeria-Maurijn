@@ -25,9 +25,9 @@ import MCPizzeriaSQL
 
 ### --------- Hoofdprogramma  ---------------
 
-#venster = Tk()
-#venster.iconbitmap("MC_icon.ico") #Let op: Dit werkt niet op een MAC! Zet deze regel dan in commentaar
-#venster.wm_title("MC Pizzeria")
+venster = Tk()
+venster.iconbitmap("MC_icon.ico") #Let op: Dit werkt niet op een MAC! Zet deze regel dan in commentaar
+venster.wm_title("MC Pizzeria")
 
 #knopSluit = Button(venster, text="Close", width=22, command=venster.destroy)
 #knopSluit.grid(row=17, column=4)
@@ -50,6 +50,34 @@ import MCPizzeriaSQL
 
 #zoekKnop = Button(venster, text="Zoek klant", width=12, command=zoekKlant)
 #zoekKnop.grid(row=1, column=4, sticky="W")
+
+#TOON PIZZAS OPDRACHT
+
+labelPizzanaam = Label(venster, text="Pizzanaam:")
+labelPizzanaam.grid(row=0, column=0, sticky="W")
+
+invoerveldPizzanaam = Entry(venster)
+invoerveldPizzanaam.grid(row=0, column=1)
+
+knopZoekOpPizzaNaam = Button(venster, text="Zoek Pizza")
+knopZoekOpPizzaNaam.grid(row=0, column=3)
+
+labelMogelijkheden = Label(venster, text="Mogelijkheden:")
+labelMogelijkheden.grid(row=1, column=0, sticky="W")
+
+listboxMenu = Listbox(venster, height=6, width=50)
+listboxMenu.grid(row=1, column=1, rowspan=6, columnspan=2, sticky="W")
+
+knopToonPizzas = Button(venster, text="Toon alle pizza's")
+knopToonPizzas.grid(row=1, column=3)
+
+#FUNCTIE DEFENITIES (TOON PIZZAS OPDRACHT)
+def zoekPizza():
+    gevonden_pizzas = MCPizzeriaSQL.zoekPizzaInTabel(ingevoerde_pizzanaam.get())
+    print(gevonden_pizzas)
+    invoerveldPizzanaam.delete(0, END)
+    for rij in gevonden_pizzas:
+        invoerveldPizzanaam.insert(END, rij[1])
 
 #reageert op gebruikersinvoer, deze regel als laatste laten staan
 venster.mainloop()

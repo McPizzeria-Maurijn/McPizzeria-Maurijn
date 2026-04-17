@@ -71,6 +71,20 @@ def zoekKlantInTabel(ingevoerde_klantnaam):
         zoek_resultaat = cursor.fetchall()
     return zoek_resultaat
 
+def zoekPizzaInTabel(ingevoerde_pizzanaam):
+    cursor.execute("SELECT * FROM tbl_pizzas WHERE pizzaNaam = ?", (ingevoerde_pizzanaam,))
+    zoek_resultaat = cursor.fetchall()
+    if zoek_resultaat == []:
+        print("Geen pizza gevonden met naam")
+        print("Pizza wordt nu toegevoegd")
+        cursor.execute("INSERT INTO tbl_pizzas VALUES(NULL, ?)", (ingevoerde_pizzanaam,))
+        db.commit()
+        print("Pizza toegevoegd aan 'tbl_pizzas':" + ingevoerde_pizzanaam)
+        printTabel("tbl_pizzas")
+        cursor.execute("SELECT * FROM tbl_pizzas WHERE pizzaMaa, = ?", (ingevoerde_pizzanaam))
+        zoek_resultaat = cursor.fetchall()
+    return zoek_resultaat
+
 ### --------- Hoofdprogramma  ---------------
 #MaakTabellenAan()
 #printTabel("tbl_pizzas")
