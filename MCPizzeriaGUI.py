@@ -14,7 +14,14 @@ import MCPizzeriaSQL
 
 
 ### ---------  Functie definities  -----------------
-
+def zoekKlant():
+    gevonden_klanten = MCPizzeriaSQL.zoekKlantInTabel(ingevoerde_klantnaam.get())
+    print(gevonden_klanten)
+    invoerveldKlantnaam.delete(0, END)
+    invoerveldKlantNr.delete(0, END)
+    for rij in gevonden_klanten:
+        invoerveldKlantNr.insert(END, rij[0])
+        invoerveldKlantnaam.insert(END, rij[1])
 
 ### --------- Hoofdprogramma  ---------------
 
@@ -41,7 +48,7 @@ labelKlantNr.grid(row=2, column=0)
 invoerveldKlantNr = Entry(venster) 
 invoerveldKlantNr.grid(row=2, column=1, sticky="W") 
 
-zoekKnop = Button(venster, text="Zoek klant", width=12)
+zoekKnop = Button(venster, text="Zoek klant", width=12, command=zoekKlant)
 zoekKnop.grid(row=1, column=4, sticky="W")
 
 #reageert op gebruikersinvoer, deze regel als laatste laten staan
